@@ -7,9 +7,6 @@
 ```bash
 npm i && npm start
 ```
-
-Description here / How to use.
-
 ---
 
 ## License
