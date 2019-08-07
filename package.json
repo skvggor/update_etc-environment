@@ -4,7 +4,7 @@
   "description": "Description here",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "start": "npx electron ."
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/marcker/update_etc-environment/issues"
   },
-  "homepage": "https://github.com/marcker/update_etc-environment#readme"
+  "homepage": "https://github.com/marcker/update_etc-environment#readme",
+  "devDependencies": {
+    "electron": "^6.0.1",
+    "npx": "^10.2.0"
+  }
 }
