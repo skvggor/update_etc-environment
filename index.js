@@ -1,6 +1,6 @@
 'use strict';
 
-const {app, BrowserWindow} = require('electron')
+const { BrowserWindow, app, ipcMain, dialog } = require('electron')
 const fs = require('fs')
 const readFile = (file) => fs.readFileSync(file, 'utf8')
 
@@ -16,14 +16,21 @@ function createWindow() {
   })
 
   mainWindow.loadFile('index.html')
-  mainWindow.on('closed', () => {
-    mainWindow = null
-  })
+  mainWindow.setMenuBarVisibility(false)
 
   const envContent = readFile('/etc/environment')
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.send('sending', envContent)
+  })
+
+  ipcMain.on('synchronous-message', (event, arg) => {
+    dialog.showOpenDialog(mainWindow)
+    console.log(arg)
+  })
+
+  mainWindow.on('closed', () => {
+    mainWindow = null
   })
 }
 

@@ -1,19 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Change my /etc/environment</title>
-    </head>
-    <body>
-        <pre></pre>
 
-        <script>
-            const {ipcRenderer} = require('electron')
-            const preTag = document.querySelectorAll('pre')[0]
+<head>
+  <meta charset="UTF-8">
 
-            ipcRenderer.on('sending', (event, envContent) => {
-                preTag.innerHTML = envContent
-            })
-        </script>
-    </body>
+  <style>
+    #file-content {
+      background: #000;
+      border: 0;
+      color: #fff;
+      height: 90vh;
+      outline: 0;
+      width: 100vw;
+    }
+  </style>
+
+  <title>Change my /etc/environment</title>
+</head>
+
+<body>
+
+  <textarea id="file-content"></textarea>
+  <button id="save-button">Save</button>
+
+  <script>
+    const { ipcRenderer } = require('electron')
+
+    function renderFileContent(ipcRenderer) {
+      const preTag = document.querySelector('#file-content')
+
+      ipcRenderer.on('sending', (event, envContent) => {
+        preTag.innerHTML = envContent
+      })
+    }
+
+    function saveFile(ipcRenderer) {
+      const saveButton = document.querySelector('#save-button')
+
+      saveButton.addEventListener('click', () => {
+        ipcRenderer.send('synchronous-message', 'saving')
+      })
+    }
+
+    renderFileContent(ipcRenderer)
+    saveFile(ipcRenderer)
+  </script>
+</body>
+
 </html>
