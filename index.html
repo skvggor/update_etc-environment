@@ -5,6 +5,15 @@
         <title>Change my /etc/environment</title>
     </head>
     <body>
-        Test
+        <pre></pre>
+
+        <script>
+            const {ipcRenderer} = require('electron')
+            const preTag = document.querySelectorAll('pre')[0]
+
+            ipcRenderer.on('sending', (event, envContent) => {
+                preTag.innerHTML = envContent
+            })
+        </script>
     </body>
 </html>

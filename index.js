@@ -1,8 +1,12 @@
+'use strict';
+
 const {app, BrowserWindow} = require('electron')
+const fs = require('fs')
+const readFile = (file) => fs.readFileSync(file, 'utf8')
 
-let mainWindow
+function createWindow() {
+  let mainWindow
 
-function createWindow () {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -14,6 +18,12 @@ function createWindow () {
   mainWindow.loadFile('index.html')
   mainWindow.on('closed', () => {
     mainWindow = null
+  })
+
+  const envContent = readFile('/etc/environment')
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('sending', envContent)
   })
 }
 
