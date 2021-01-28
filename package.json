@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/marcker/update_etc-environment#readme",
   "devDependencies": {
-    "electron": "^6.0.1",
+    "electron": "^9.4.0",
     "npx": "^10.2.0"
   }
 }
